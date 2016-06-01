@@ -18,29 +18,24 @@ enum columns
 };
 
 /**
- * Given a file weather.dat return the day with the smallest spread 
- * between the maximum and minimum temperature.
+ * Returns the smallest temperature spread on one of the days
+ * as defined in FNAME.
  */
-int main()
+void weather(FILE *fp)
 {
     int day = -1, curday = 0, cnt = 0;
     double sprd = MAXSPRD, cursprd = 0.0;
     char c, value[MAXSTR];
-    FILE *weather = fopen(FNAME, "r"); int linenu = 1;
-    if (!weather)
-    {
-        printf("Could not open file: %s\n", FNAME);
-        return -1;
-    }
-    // Go to beginning of 3rd line.
-    fseek(weather, INITOFST, SEEK_SET); linenu += 2;
+
+    // Initial linenumber in fp.
+    int linenu = 3;
 
     // Parse the result from the columns in weather.dat and compute the result.
     enum columns weather_col = DAY;
     do
     {
-        c = fgetc(weather);
-        if (feof(weather)) {break;}
+        c = fgetc(fp);
+        if (feof(fp)) {break;}
         
         if (isspace(c) && cnt) 
         {
@@ -67,11 +62,11 @@ int main()
                     }
                     weather_col = DAY;
                     // Increment our cursor to the next line.
-                    while ((c = fgetc(weather)) != '\n')
+                    while ((c = fgetc(fp)) != '\n')
                     {
                         // If EOF reached print results.
                         // This won't occur during normal runtime though.
-                        if (feof(weather)) {goto print;}
+                        if (feof(fp)) {goto print;}
                     }
                     linenu++;
                     break;
@@ -80,7 +75,7 @@ int main()
             }
             cnt = 0;
         }
-        else if ((c >= '0' && c <= '9') || c == '.')
+        else if (isdigit(c) || c == '.')
         {
             value[cnt++] = c;
         }
@@ -88,7 +83,5 @@ int main()
 
 print:
     printf("Day %d has the smallest spread of %g\n", day, sprd);
-    fclose(weather);
-
-    return 0;
 }
+

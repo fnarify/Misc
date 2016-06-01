@@ -23,31 +23,26 @@ enum columns
  * Prints the team with the smallest difference between their for and 
  * against score.
  */
-int main()
+void football(FILE *fp)
 {
     int diff = MAXDIFF, curdiff = 0, cnt = 0;
     char name[MAXSTR], curname[MAXSTR];
     char c, value[MAXSTR];
-    FILE *football = fopen(FNAME, "r"); int linenu = 1;
-    if (!football)
-    {
-        printf("Could not open file: %s\n", FNAME);
-        return -1;
-    }
-    // Go to first team name on second line.
-    fseek(football, INITOFST, SEEK_SET); linenu++;
+
+    // Initial linenumber we start on in fp.
+    int linenu = 2;
 
     enum columns football_col = TEAM;
     do
     {
-        c = fgetc(football);
-        if (feof(football)) {break;}
+        c = fgetc(fp);
+        if (feof(fp)) {break;}
 
         // As line 19 only has '-'.
         if (linenu == 19)
         {
-            fseek(football, 71L - AOFST, SEEK_CUR);
-            c = fgetc(football);
+            fseek(fp, 71L - AOFST, SEEK_CUR);
+            c = fgetc(fp);
             linenu++;
         }
 
@@ -60,7 +55,7 @@ int main()
                 case TEAM:
                     curname[cnt] = '\0';
                     // Move to the start of the FOR column.
-                    fseek(football, TEAMOFST - (cnt + 1), SEEK_CUR);
+                    fseek(fp, TEAMOFST - (cnt + 1), SEEK_CUR);
                     football_col = FOR;
                     break;
                 case FOR:
@@ -77,7 +72,7 @@ int main()
                         diff = curdiff;
                     }
                     // Move to the start of the next team name.
-                    fseek(football, AOFST, SEEK_CUR);
+                    fseek(fp, AOFST, SEEK_CUR);
                     linenu++;
                     football_col = TEAM;
                     break;
@@ -90,16 +85,13 @@ int main()
         {
             curname[cnt++] = c;
         }
-        else if (c >= '0' && c <= '9')
+        else if (isdigit(c))
         {
             value[cnt++] = c;
         }
     } while (linenu < MAXLINE);
-    
-    fclose(football);
 
     printf("%s had the smallest difference in for vs. against at %d\n",
             name, diff);
-
-    return 0;
 }
+
