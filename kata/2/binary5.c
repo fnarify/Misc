@@ -23,6 +23,8 @@ int rand_lim(int lim)
  */
 int chop(int tar, int size, int *p)
 {
+    srand(time(NULL));
+
     int low, mid, high;
     low = 0; high = size - 1;
 
