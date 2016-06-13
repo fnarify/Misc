@@ -5,7 +5,7 @@ TARGET=main
 .PHONY: install clean
 
 install:
-	$(CC) $(CFLAGS) $(TARGET).c
+	$(CC) -o $(TARGET) $(CFLAGS) $(TARGET).c
 
 clean:
-	rm -f bloom a.out
+	rm -f $(TARGET) bloom

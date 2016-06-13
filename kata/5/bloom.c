@@ -72,8 +72,8 @@ elem_f *initfilter(size_t fnum)
 }
 
 /**
- * Saves a bloom filter to SAVE; that contains fnum field elements, for later use.
- * Returns 1 on success, 0 on failure.
+ * Saves a bloom filter to SAVE; that contains fnum field elements, for later 
+ * use. Returns 1 on success, 0 on failure.
  */
 int savefilter(elem_f *bloom, size_t fnum)
 {
@@ -155,24 +155,8 @@ void addwords(elem_f *bloom, size_t fnum, size_t n)
             in[strcspn(in, "\n")] = '\0';
             nwords++;
 
+            // Add word to filter.
             addword(in, bloom, fnum);
-
-            /*
-            SHA1(in, sizeof(in), out);
-
-            
-            // Index offset and bit offset.
-            size_t indexoff = (abs(in[0] - 'A') * strlen(in)) % (fnum - SHA_DIGEST_LENGTH);
-            unsigned short bitoff = (abs(in[0] - 'A') % sizeof(elem_f)) * BITS;
-
-            int i;
-            for (i = 0; i < SHA_DIGEST_LENGTH; i++)
-            {
-                // Offset the index and set the bits corresponding 
-                // to the value given by the digest.
-                bloom[indexoff + i] |= out[i] << bitoff;
-            }
-            */
         }
         else
         {
