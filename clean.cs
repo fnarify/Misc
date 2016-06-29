@@ -17,6 +17,10 @@ using System.Text;
  * You can also just use dos2unix/unix2dox or:
  * set fileformat=unix
  * ...
+ *
+ * The final command that removes some trailing newlines, also leaves a space before each
+ * newline. This is easy to fix with any other Regex parser, in Vim you can run:
+ * :%s/ \n/\r/g
  */
 namespace MyNameSpace
 {
@@ -91,7 +95,6 @@ namespace MyNameSpace
             html = Regex.Replace(html, @"<head>[\s\S]*</head>", "", RegexOptions.IgnoreCase);
             // Remove all newlines between words and replace with spaces.
             html = Regex.Replace(html, @"(\w+)?[\r]\n(\w+)", "$1 $2", RegexOptions.IgnoreCase);
-            html = html.Replace("\n \n", "\n\n");
             return html;
         }
 
