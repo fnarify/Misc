@@ -1,3 +1,11 @@
+/**
+ * Example bloom filter in C.
+ * Only dependency is the openssl library for use with SHA1,
+ * you can easily download and install it from their github profile.
+ *
+ * To compile, you need to include the flags -lssl -lcrypto
+ * check the Makefile to know.
+ */
 #include "bloom.h"
 #include <stdio.h>
 #include <unistd.h>
