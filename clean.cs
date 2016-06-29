@@ -89,6 +89,8 @@ namespace MyNameSpace
             // Remove <html>, <head> and <body> tags.
             html = Regex.Replace(html, @"<[/]?(html|body)(.*?)>", "", RegexOptions.IgnoreCase);
             html = Regex.Replace(html, @"<head>[\s\S]*</head>", "", RegexOptions.IgnoreCase);
+            // Remove all newlines between words and replace with spaces.
+            html = Regex.Replace(html, @"(\w+)?[\r]\n(\w+)", "$1 $2", RegexOptions.IgnoreCase);
             return html;
         }
 
