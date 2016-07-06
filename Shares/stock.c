@@ -51,6 +51,8 @@ int main(int argc, char *argv[])
             printf("%c", c);
         }
         printf(" last traded\n");
+        
+        fclose(file);
     }
     else
     {
