@@ -17,6 +17,13 @@ using System.Text;
  * You can also just use dos2unix/unix2dox or:
  * set fileformat=unix
  * ...
+ *
+ * The final command that removes some trailing newlines, also leaves a space before each
+ * newline. This is easy to fix with any other Regex parser, in Vim you can run:
+ * :%s/ \n/\r/g
+ * OR
+ * :%s/\n\s\+/\r/g
+ * but the lower one will unindent indented html tags (that are indented with spaces not tabs).
  */
 namespace MyNameSpace
 {
@@ -81,6 +88,7 @@ namespace MyNameSpace
             html = Regex.Replace(html, @"(\s|\n)+</td>", "</td>", RegexOptions.IgnoreCase);
             html = Regex.Replace(html, @"\r\n\s\s([^<])", " $1", RegexOptions.IgnoreCase);
             html = Regex.Replace(html, @"border=[0-9]+ cellspacing=[0-9]+ cellpadding=[0-9]+", " class=\"wikitable\"", RegexOptions.IgnoreCase);
+            html = Regex.Replace(html, @"\s*(cellpadding|cellspacing|width|height|align|bgcolor)\s*=\s*[""]?\w+[%]?[""]?\s*", "", RegexOptions.IgnoreCase);
             // Replace header tags with corresponding mediawiki variant.
             html = Regex.Replace(html, @"<[/]?h[12]\s*>", "==", RegexOptions.IgnoreCase);
             html = Regex.Replace(html, @"<[/]?h[34]\s*>", "===", RegexOptions.IgnoreCase);
@@ -91,6 +99,9 @@ namespace MyNameSpace
             html = Regex.Replace(html, @"<head>[\s\S]*</head>", "", RegexOptions.IgnoreCase);
             // Remove all newlines between words and replace with spaces.
             html = Regex.Replace(html, @"(\w+)?[\r]\n(\w+)", "$1 $2", RegexOptions.IgnoreCase);
+            // Remove chapter names from titles.
+            html = Regex.Replace(html, @"==Chapter [0-9]+: ", "==");
+            html = Regex.Replace(html, @"==[0-9](.[0-9])+ ", "==");
             return html;
         }
 
