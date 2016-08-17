@@ -10,6 +10,14 @@
 #define MAXCMD 200     // Max amount of chars in command call.
 #define EXC    ".AX"   // Default exchange location Australian exchange.
 #define TAG    "&f=l1" // Tag for information (currently last trade price).
+#define OPTS   "-so"   // Curl options.
+
+// Don't use nc on windows by default.
+#if (defined _WIN32) || (defined __WIN32__)
+    #define NC ""
+#else
+    #define NC "| nc download.finance.yahoo.com 80"
+#endif
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +25,7 @@ int main(int argc, char *argv[])
     char *filename = "quotes.csv";
     char command[MAXCMD];
     char c;
-    int cnt = 0;
+    int cnt;
 
     if (argc == 1)
     {
@@ -26,13 +34,15 @@ int main(int argc, char *argv[])
     }
     while (--argc)
     {
-        strncpy(stock, argv[argc], sizeof(stock));
+        memcpy(stock, argv[argc], sizeof(stock) - 1);
+        stock[MAXSIN - 1] = '\0';
 
         // Check that the input isn't too long, and that the input is always uppercase.
+        cnt = 0;
         while (stock[cnt] != '\0') {stock[cnt] = toupper(stock[cnt]); cnt++;}
 
-        sprintf(command, "curl -o %s \"download.finance.yahoo.com/d/%s?s=%s%s%s\" | nc download.finance.yahoo.com 80",
-                filename, filename, stock, EXC, TAG);
+        sprintf(command, "curl %s %s \"download.finance.yahoo.com/d/%s?s=%s%s%s\" %s",
+                OPTS, filename, filename, stock, EXC, TAG, NC);
 
         system(command);
 
