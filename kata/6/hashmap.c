@@ -97,16 +97,19 @@ int addvalue(struct HashMap *m, size_t pos, char *val)
         root = &m->values[pos].words;
 
         // Prevents duplicates being added.
-        if (*root)
+        cur = *root;
+        while (cur)
         {
-            if ((*root)->word)
+            if (cur->word)
             {
-                if (!strcmp(val, (*root)->word))
+                if (!strcmp(val, cur->word))
                 {
                     return 2;
                 }
             }
+            cur = cur->next;
         }
+        cur = NULL;
 
         cur = malloc(sizeof(struct LinkedWords));
         checkmem(cur, "not enough memory\n", -2);
