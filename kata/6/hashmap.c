@@ -38,6 +38,11 @@ struct HashMap *initmap(size_t n)
 
 /**
  * Hashes a string s for indexing into a HashMap.
+ * Both this and hash2 have undefined bitshift operators
+ * for size_t being < 16 bits and < 24 bits respectively.
+ *
+ * This can be solved by using uint32_t or checking against the sizeof
+ * size_t beforehand, but it's generally not worth the cost.
  */
 size_t hash1(char *s)
 {

@@ -3,8 +3,6 @@
  * system dictionaries and wordlists. It one word per line in the file, 
  * sorts it lowercase lexicographically, and places that as the key in a hashmap
  */
-#include <unistd.h>
-#include <time.h>
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
