@@ -4,7 +4,7 @@ FLAGS=-g -Wall -Wextra -pedantic -std=c99
 
 ifdef ComSpec
    # Windows.
-   RM = del.bat
+   RM = del
 else
    # Everything else.
    RM = rm -f

@@ -15,7 +15,7 @@ struct HashMap *initmap(size_t n)
 {
     size_t i;
     struct HashMap *map = malloc(sizeof(struct HashMap));
-    if (!map) {return map;}
+    if (!map) {return NULL;}
 
     map->keys = malloc(sizeof(char *) * n);
     map->values = malloc(sizeof(struct Values) * n);
@@ -109,7 +109,7 @@ int addvalue(struct HashMap *m, size_t pos, char *val)
             {
                 if (!strcmp(val, cur->word))
                 {
-                    return 2;
+                    return H_DUP;
                 }
             }
             cur = cur->next;
@@ -117,13 +117,13 @@ int addvalue(struct HashMap *m, size_t pos, char *val)
         cur = NULL;
 
         cur = malloc(sizeof(struct LinkedWords));
-        checkmem(cur, "not enough memory\n", -2);
+        checkmem(cur, "not enough memory\n", L_NO_MEM);
         
         cur->word = malloc(sizeof(char) * (strlen(val) + 1));
         if (!cur->word)
         {
             free(cur);
-            memerror("not enough memory\n", -2);
+            memerror("not enough memory\n", L_NO_MEM);
         }
         strcpy(cur->word, val);
 
@@ -135,7 +135,7 @@ int addvalue(struct HashMap *m, size_t pos, char *val)
         m->values[pos].vsize++;
     }
 
-    return 0;
+    return H_OK;
 }
 
 
@@ -146,7 +146,7 @@ int addvalue(struct HashMap *m, size_t pos, char *val)
  */
 int addpair(struct HashMap *m, char *s1, char *s2)
 {
-    checkmem(m, "no hashmap\n", -1);
+    checkmem(m, "no hashmap\n", H_NO_MAP);
 
     int samelength = 0;
     size_t size, hashval, s1len, keylen, i;
@@ -161,7 +161,7 @@ int addpair(struct HashMap *m, char *s1, char *s2)
     {
         // Create new key, and add value pair (position at hashval for both).
         m->keys[hashval] = malloc(sizeof(char) * (s1len + 1));
-        checkmem(m->keys[hashval], "no memory for keys\n", -3);
+        checkmem(m->keys[hashval], "no memory for keys\n", H_NO_MEM);
         strcpy(m->keys[hashval], s1);
 
         return addvalue(m, hashval, s2);
@@ -181,7 +181,7 @@ int addpair(struct HashMap *m, char *s1, char *s2)
         if (!m->keys[hashval])
         {
             m->keys[hashval] = malloc(sizeof(char) * (s1len + 1));
-            checkmem(m->keys[hashval], "no memory for keys\n", -3);
+            checkmem(m->keys[hashval], "no memory for keys\n", H_NO_MEM);
             strcpy(m->keys[hashval], s1);
 
             return addvalue(m, hashval, s2);
@@ -211,7 +211,7 @@ int addpair(struct HashMap *m, char *s1, char *s2)
                 else
                 {
                     m->keys[i] = malloc(sizeof(char) * (s1len + 1));
-                    checkmem(m->keys[i], "no memory for keys\n", -3);
+                    checkmem(m->keys[i], "no memory for keys\n", H_NO_MEM);
                     strcpy(m->keys[i], s1);
 
                     return addvalue(m, i, s2);
@@ -222,7 +222,7 @@ int addpair(struct HashMap *m, char *s1, char *s2)
         }
     }
 
-    return 1;
+    return H_NO_ADD;
 }
 
 /**
