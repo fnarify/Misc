@@ -174,7 +174,7 @@ int addpair(struct HashMap *m, char *s1, char *s2)
     else
     {
         // Collision, so take a second hash.
-        hashval = hash2(s2) % size;
+        hashval = hash1(s2) % size;
         keylen = m->keys[hashval] ? strlen(m->keys[hashval]) : 0;
         samelength = (s1len == keylen) ? 1 : 0;
 
