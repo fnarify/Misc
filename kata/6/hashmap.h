@@ -34,7 +34,7 @@ struct HashMap *initmap(size_t n);
 size_t hash1(char *s);
 size_t hash2(char *s);
 int addvalue(struct HashMap *m, size_t hashval, char *val);
-int addpair(struct HashMap *m, char *s1, char *s2);
+int addpair(struct HashMap *m, char *key, char *val);
 void cleanlist(struct LinkedWords *list, size_t n);
 void cleanmap(struct HashMap *m);
 void printmap(struct HashMap *m);
