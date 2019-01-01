@@ -1,9 +1,0 @@
-use breadth-first search
-Put the unit to move's current location on the top of the queue
-pop that value off the queue and then add it's adjacent squares
-(top->left->right->down)
-"Make sure to check they're valid before checking"
-Do this until you reach the goal location
-Somehow record the distance
-Return the path of shortest distance to the closest square adjacent to the
-target. (top->left->right->down)
