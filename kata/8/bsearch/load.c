@@ -77,7 +77,7 @@ size_t load(char (*words)[MAX_WORD_SIZE + 1], FILE *dict, size_t ln)
             word[lnsize] = '\0';
             // If no new-line read go to next line.
             if (lnsize == MAX_WORD_SIZE) {nextline(dict);}
-            // Only add words that are the same size of greater than the minimum.
+            // Only add words that are the same size or greater than the minimum.
             if (lnsize > MIN_WORD_SIZE - 1)
             {
                 strcpy(words[nwords], word);
