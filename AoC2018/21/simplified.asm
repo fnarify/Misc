@@ -1,0 +1,19 @@
+ST: REG4 = REG5 | 65536
+REG5 = 8558047
+_1: REG2 = REG4 & 255
+    REG5 += REG2
+    REG5 &= 16777215
+    REG5 *= 65899
+    REG5 &= 16777215
+    if (256 > REG4) GOTO CHK
+    REG2 = 0
+LOOP: REG1 = REG2 + 1
+    REG1 *= 256
+    if (REG1 > REG4)
+        REG4 = REG2
+        GOTO _1
+    REG2 += 1
+GOTO LOOP
+CHK: if (REG0 == REG5) GOTO END
+GOTO ST
+END:

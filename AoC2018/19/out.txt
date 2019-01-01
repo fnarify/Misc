@@ -1,0 +1,63 @@
+reg0 contains value: 968
+18
+19
+20
+21
+22
+23
+24
+25
+26
+28
+29
+30
+31
+32
+33
+34
+35
+36
+2
+3
+reg0 contains value: 0
+
+REG3 = 17
+REG5 = 2, REG3 = 18
+REG5 = 4, REG3 = 19
+REG5 = 44, REG3 = 20
+REG2 = 2, REG3 = 21
+REG2 = 42, REG3 = 22
+REG2 = 63, REG3 = 23
+REG5 = 107, REG3 = 24
+REG3 = 26
+REG2 = 26, REG3 = 27
+REG2 = 702, REG3 = 28
+REG2 = 730, REG3 = 29
+REG2 = 21170, REG3 = 30
+REG2 = 296380, REG3 = 31
+REG2 = 9187780, REG3 = 32
+REG5 = 9187887, REG3 = 33
+
+REG0 = 0
+REG3 = 1
+REG1 = 1, REG3 = 2
+REG4 = 1, REG3 = 3
+REG2 = 1, REG3 = 4
+REG2 = 0, REG3 = 5
+REG3 = 6
+REG3 = 8
+REG4 = 2, REG3 = 9
+REG2 = 0, REG3 = 10
+REG3 = 11
+
+REG3 = 3
+
+REG2 = 2
+REG2 = 0, REG3 = 3
+REG3 = 4
+REG3 = 6
+REG4 = 3, REG3 = 7
+REG2 = 0, REG3 = 8
+REG3 = 9
+
+REG1 = 2
